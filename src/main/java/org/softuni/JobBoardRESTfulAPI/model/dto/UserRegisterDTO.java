@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @FieldMatch(
         first = "password",
@@ -34,6 +35,17 @@ public class UserRegisterDTO {
     @NotEmpty
     @Size(min = 4, max = 20)
     private String username;
+
+    private LocalDate dateOfBirth;
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public UserRegisterDTO setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        return this;
+    }
 
     public UserRegisterDTO() {
     }

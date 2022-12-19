@@ -7,14 +7,25 @@ import java.util.Set;
 public class UserViewModel {
 
     private Long id;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserViewModel setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
     @NotNull
     private String firstName;
     @NotNull
     private String lastName;
     @NotNull
     private String email;
-    @NotNull
-    private Integer age;
+//    @NotNull
+//    private Integer age;
     @NotNull
     private String gender;
 
@@ -27,14 +38,15 @@ public class UserViewModel {
     public UserViewModel() {
     }
 
-    public UserViewModel(Long id, String firstName, String lastName, String email,
+    public UserViewModel(Long id, String username, String firstName, String lastName, String email,
                          Integer age, String gender, Set<String> role,
                          String level, List<String> techStack) {
         this.id = id;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
+//        this.age = age;
         this.gender = gender;
         this.role = role;
         this.level = level;
@@ -77,14 +89,6 @@ public class UserViewModel {
         return this;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public UserViewModel setAge(Integer age) {
-        this.age = age;
-        return this;
-    }
 
     public String getGender() {
         return gender;

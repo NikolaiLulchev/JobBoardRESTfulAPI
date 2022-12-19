@@ -31,7 +31,7 @@ public class UserEntity extends BaseEntity {
     @Transient
     private Integer age;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
     public LocalDate getDateOfBirth() {

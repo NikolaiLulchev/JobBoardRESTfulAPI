@@ -39,11 +39,12 @@ spring:
 logging:
   level:
     root: warn
-    org.springframework.web: trace
+    org.springframework.web: debug
     org:
       springframework:
         web:
           servlet:
-            DispatcherServlet: trace
-    org.hibernate: debug
+            DispatcherServlet: debug
+    org.hibernate: error
+
 

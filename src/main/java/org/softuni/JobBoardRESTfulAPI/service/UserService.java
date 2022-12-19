@@ -158,6 +158,6 @@ public class UserService {
         SecurityContextHolder.
                 getContext().
                 setAuthentication(auth);
-        System.out.println("user" + userDetails.getUsername() + "logged in");
+        System.out.println("user " + userDetails.getUsername() + " logged in");
     }
 }
