@@ -8,23 +8,13 @@ public class UserViewModel {
 
     private Long id;
     private String username;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public UserViewModel setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
     @NotNull
     private String firstName;
     @NotNull
     private String lastName;
     @NotNull
     private String email;
-//    @NotNull
+    //    @NotNull
 //    private Integer age;
     @NotNull
     private String gender;
@@ -51,6 +41,15 @@ public class UserViewModel {
         this.role = role;
         this.level = level;
         this.techStack = techStack;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserViewModel setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public Long getId() {

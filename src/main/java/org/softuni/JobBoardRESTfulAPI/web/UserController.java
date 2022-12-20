@@ -3,12 +3,11 @@ package org.softuni.JobBoardRESTfulAPI.web;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.UserLoginDTO;
 import org.softuni.JobBoardRESTfulAPI.model.dto.UserRegisterDTO;
+import org.softuni.JobBoardRESTfulAPI.model.dto.UserUpdateDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
-import org.softuni.JobBoardRESTfulAPI.model.user.JobboardUserDetails;
 import org.softuni.JobBoardRESTfulAPI.model.view.UserViewModel;
 import org.softuni.JobBoardRESTfulAPI.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,9 +76,16 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<?> getProfile(Principal principal){
+    public ResponseEntity<?> getProfile(Principal principal) {
         UserEntity user = userService.getUser(principal.getName());
         UserViewModel userDTO = modelMapper.map(user, UserViewModel.class);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PatchMapping("/profile/{userId}")
+    public ResponseEntity<?> updateProfile(@PathVariable Long userId,@RequestBody @Valid UserUpdateDTO userUpdateDTO) {
+        UserEntity user = userService.getUserById(userId);
+        this.userService.updateUser(user, userUpdateDTO);
+        return ResponseEntity.noContent().build();
     }
 }
