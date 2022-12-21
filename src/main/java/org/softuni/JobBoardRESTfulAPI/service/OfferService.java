@@ -21,14 +21,17 @@ public class OfferService {
     private final UserService userService;
     private final CompanyService companyService;
 
-    public OfferService(ModelMapper modelMapper, OfferRepository offerRepository, UserService userService, CompanyService companyService) {
+    private final Principal principal;
+
+    public OfferService(ModelMapper modelMapper, OfferRepository offerRepository, UserService userService, CompanyService companyService, Principal principal) {
         this.modelMapper = modelMapper;
         this.offerRepository = offerRepository;
         this.userService = userService;
         this.companyService = companyService;
+        this.principal = principal;
     }
 
-    public void postOffer(Principal principal, OfferAddDTO offerModel) {
+    public void postOffer(OfferAddDTO offerModel) {
 
         UserEntity user = userService.getUser(principal.getName());
         CompanyEntity company = companyService.findCompany(user);
@@ -52,7 +55,7 @@ public class OfferService {
     }
 
     public OfferEntity getOfferById(Long id) {
-        return offerRepository.getById(id);
+        return offerRepository.getReferenceById(id);
     }
 
     public void proceedOfferTask() {

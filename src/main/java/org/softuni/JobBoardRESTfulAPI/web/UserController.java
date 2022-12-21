@@ -47,7 +47,7 @@ public class UserController {
         return ResponseEntity.ok(userDtos);
     }
 
-    @GetMapping("profile/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserViewModel> getUserById(@PathVariable Long userId) {
         UserEntity user = userService.getUserById(userId);
         UserViewModel userDTO = modelMapper.map(user, UserViewModel.class);
@@ -82,8 +82,14 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PatchMapping("/profile/{userId}")
-    public ResponseEntity<?> updateProfile(@PathVariable Long userId,@RequestBody @Valid UserUpdateDTO userUpdateDTO) {
+    @PatchMapping("/{userId}")
+    public ResponseEntity<?> updateProfile(@PathVariable Long userId,
+                                           @RequestBody @Valid UserUpdateDTO userUpdateDTO,
+                                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         UserEntity user = userService.getUserById(userId);
         this.userService.updateUser(user, userUpdateDTO);
         return ResponseEntity.noContent().build();

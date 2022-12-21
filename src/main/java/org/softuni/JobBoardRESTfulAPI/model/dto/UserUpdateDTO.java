@@ -15,9 +15,9 @@ public class UserUpdateDTO {
     @NotEmpty
     private String email;
 
-    @Min(18)
-    @Max(110)
-    @NotNull
+//    @Min(18)
+//    @Max(110)
+//    @NotNull
     private Integer age;
 
     @NotNull
