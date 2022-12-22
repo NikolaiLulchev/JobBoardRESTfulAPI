@@ -68,11 +68,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserLoginDTO userModel) {
+    public ResponseEntity<?> login(@RequestBody @Valid UserLoginDTO userModel,
+                                   UserViewModel userView) {
 
         this.userService.login(userModel);
 
-        return ResponseEntity.ok(userModel);
+        return ResponseEntity.ok(userView);
     }
 
     @GetMapping("/profile")
