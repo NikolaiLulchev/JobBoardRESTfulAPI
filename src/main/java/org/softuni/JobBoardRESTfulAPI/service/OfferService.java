@@ -5,13 +5,17 @@ import org.softuni.JobBoardRESTfulAPI.model.dto.OfferAddDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.CompanyEntity;
 import org.softuni.JobBoardRESTfulAPI.model.entity.OfferEntity;
 import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
+import org.softuni.JobBoardRESTfulAPI.model.enums.LevelEnum;
+import org.softuni.JobBoardRESTfulAPI.model.enums.LocationEnum;
+import org.softuni.JobBoardRESTfulAPI.model.enums.PositionEnum;
 import org.softuni.JobBoardRESTfulAPI.model.view.OfferViewModel;
 import org.softuni.JobBoardRESTfulAPI.repository.OfferRepository;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,38 +25,78 @@ public class OfferService {
     private final UserService userService;
     private final CompanyService companyService;
 
-    private final Principal principal;
-
-    public OfferService(ModelMapper modelMapper, OfferRepository offerRepository, UserService userService, CompanyService companyService, Principal principal) {
+    public OfferService(ModelMapper modelMapper, OfferRepository offerRepository, UserService userService, CompanyService companyService) {
         this.modelMapper = modelMapper;
         this.offerRepository = offerRepository;
         this.userService = userService;
         this.companyService = companyService;
-        this.principal = principal;
     }
 
     public void postOffer(OfferAddDTO offerModel) {
 
-        UserEntity user = userService.getUser(principal.getName());
-        CompanyEntity company = companyService.findCompany(user);
+
+        UserEntity user = userService.getUser(offerModel.getUsername());
+        CompanyEntity company = companyService.findCompanyByUser(user);
 
         OfferEntity offer = modelMapper.map(offerModel, OfferEntity.class);
 
         offer.setTechStack(userService.getTechStackEntityList(offerModel.getTechStack()));
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
-        if (company != null) {
-            offer.setCompany(company);
-        }
-        offer.getCompany().getUsers().add(user);
+//        if (company != null) {
+//            offer.setCompany(company);
+//        }
+//        offer.getCompany().getUsers().add(user);
 
         offerRepository.save(offer);
     }
 
-    public List<OfferViewModel> getAllOffers() {
+    public List<OfferViewModel> getAllOffers(String location, String position, String level) {
+        Predicate<OfferEntity> filterByLocation = offer -> {
+            if (location == null || location.isBlank()) {
+                return true;
+            }
+            return offer.getLocation() == LocationEnum.valueOf(location);
+        };
+        Predicate<OfferEntity> filterByPosition = offer -> {
+            if (position == null || position.isBlank()) {
+                return true;
+            }
+            return offer.getPosition() == PositionEnum.valueOf(position);
+        };
+        Predicate<OfferEntity> filterByLevel = offer -> {
+            if (level == null || level.isBlank()) {
+                return true;
+            }
+            return offer.getLevel() == LevelEnum.valueOf(level);
+        };
+
+        Predicate<OfferEntity> filter = filterByLocation;
+
+        if (position != null && !position.isBlank()) {
+            filter = filter.and(filterByPosition);
+        }
+
+        if (level != null && !level.isBlank()) {
+            filter = filter.and(filterByLevel);
+        }
+
         return offerRepository.findAllByOrderByAddedOnDesc().stream()
-                .map(offerEntity -> modelMapper.map(offerEntity, OfferViewModel.class)).collect(Collectors.toList());
+                .filter(filter)
+                .map(offerEntity -> {
+                    OfferViewModel offerViewModel = modelMapper.map(offerEntity, OfferViewModel.class);
+                    offerViewModel.setUsername(offerEntity.getUser().getUsername());
+                    return offerViewModel;
+                })
+                .collect(Collectors.toList());
+
+
     }
+
+//    public List<OfferViewModel> getAllOffers() {
+//        return offerRepository.findAllByOrderByAddedOnDesc().stream()
+//                .map(offerEntity -> modelMapper.map(offerEntity, OfferViewModel.class)).collect(Collectors.toList());
+//    }
 
     public OfferEntity getOfferById(Long id) {
         return offerRepository.getReferenceById(id);

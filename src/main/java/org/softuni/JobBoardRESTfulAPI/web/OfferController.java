@@ -1,8 +1,8 @@
 package org.softuni.JobBoardRESTfulAPI.web;
 
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.OfferAddDTO;
-import org.softuni.JobBoardRESTfulAPI.model.dto.UserRegisterDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.OfferEntity;
 import org.softuni.JobBoardRESTfulAPI.model.view.OfferViewModel;
 import org.softuni.JobBoardRESTfulAPI.service.OfferService;
@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin(
@@ -33,10 +32,18 @@ public class OfferController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OfferViewModel>> getAllOffers() {
-        List<OfferViewModel> offers = offerService.getAllOffers();
+    public ResponseEntity<List<OfferViewModel>> getAllOffers(@RequestParam(required = false) String location,
+                                                             @RequestParam(required = false) String position,
+                                                             @RequestParam(required = false) String level) {
+        List<OfferViewModel> offers = offerService.getAllOffers(location, position, level);
         return ResponseEntity.ok(offers);
     }
+
+//    @GetMapping
+//    public ResponseEntity<List<OfferViewModel>> getAllOffers() {
+//        List<OfferViewModel> offers = offerService.getAllOffers();
+//        return ResponseEntity.ok(offers);
+//    }
 
     @GetMapping("/{offerId}")
     public ResponseEntity<OfferViewModel> getOfferBiId(@PathVariable Long offerId) {
@@ -47,8 +54,8 @@ public class OfferController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?>addOffer(@RequestBody @Valid OfferAddDTO offerModel,
-                                     BindingResult bindingResult){
+    public ResponseEntity<?> addOffer(@RequestBody @Valid OfferAddDTO offerModel,
+                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }

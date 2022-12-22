@@ -14,7 +14,7 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public CompanyEntity findCompany(UserEntity user) {
+    public CompanyEntity findCompanyByUser(UserEntity user) {
         return companyRepository.findCompanyEntityByUsers(user);
     }
 }

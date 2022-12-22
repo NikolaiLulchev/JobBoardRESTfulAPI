@@ -2,13 +2,15 @@ package org.softuni.JobBoardRESTfulAPI.model.dto;
 
 import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class OfferAddDTO {
 
-    private UserEntity user;
+    private String username;
 
+    @NotEmpty
     private String position;
 
     private String title;
@@ -30,12 +32,12 @@ public class OfferAddDTO {
     public OfferAddDTO() {
     }
 
-    public UserEntity getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public OfferAddDTO setUser(UserEntity user) {
-        this.user = user;
+    public OfferAddDTO setUsername(String username) {
+        this.username = username;
         return this;
     }
 

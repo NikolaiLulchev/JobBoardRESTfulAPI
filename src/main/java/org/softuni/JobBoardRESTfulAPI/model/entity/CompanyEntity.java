@@ -13,9 +13,9 @@ public class CompanyEntity extends BaseEntity {
     @Size(min = 2, max = 20)
     private String name;
     @OneToMany(fetch = FetchType.EAGER)
-    private Set<UserEntity> users = new HashSet<>();
+    private Set<UserEntity> users;
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
-    private Set<OfferEntity> offers = new HashSet<>();
+    private Set<OfferEntity> offers;
 
     public CompanyEntity() {
     }

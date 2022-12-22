@@ -34,15 +34,6 @@ public class UserEntity extends BaseEntity {
 //    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public UserEntity setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
-
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
 
@@ -154,6 +145,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public UserEntity setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
         return this;
     }
 }
