@@ -68,8 +68,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserLoginDTO userModel,
-                                   UserViewModel userView) {
+    public ResponseEntity<?> login(@RequestBody @Valid UserLoginDTO userModel) {
+
+        UserEntity user = this.userService.getUser(userModel.getUsername());
+        UserViewModel userView = modelMapper.map(user, UserViewModel.class);
 
         this.userService.login(userModel);
 

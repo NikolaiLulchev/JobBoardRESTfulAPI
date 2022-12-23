@@ -50,7 +50,7 @@ public class SecurityConfiguration {
         http.addFilterBefore(corsFilter(), CsrfFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/api/v1/users/**","/api/v1/offers/**").permitAll()
+                .antMatchers("/", "/api/v1/users/**","/api/v1/offers/**", "/api/v1/company/**").permitAll()
                 .anyRequest()
                 .authenticated().
                 and().

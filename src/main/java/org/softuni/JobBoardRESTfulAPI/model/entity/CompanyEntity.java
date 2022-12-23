@@ -2,7 +2,6 @@ package org.softuni.JobBoardRESTfulAPI.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,8 +13,8 @@ public class CompanyEntity extends BaseEntity {
     private String name;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<UserEntity> users;
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
-    private Set<OfferEntity> offers;
+//    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+//    private Set<OfferEntity> offers;
 
     public CompanyEntity() {
     }
@@ -38,12 +37,12 @@ public class CompanyEntity extends BaseEntity {
         return this;
     }
 
-    public Set<OfferEntity> getOffers() {
-        return offers;
-    }
-
-    public CompanyEntity setOffers(Set<OfferEntity> offers) {
-        this.offers = offers;
-        return this;
-    }
+//    public Set<OfferEntity> getOffers() {
+//        return offers;
+//    }
+//
+//    public CompanyEntity setOffers(Set<OfferEntity> offers) {
+//        this.offers = offers;
+//        return this;
+//    }
 }

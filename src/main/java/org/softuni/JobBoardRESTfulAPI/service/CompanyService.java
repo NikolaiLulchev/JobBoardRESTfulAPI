@@ -17,4 +17,5 @@ public class CompanyService {
     public CompanyEntity findCompanyByUser(UserEntity user) {
         return companyRepository.findCompanyEntityByUsers(user);
     }
+
 }
