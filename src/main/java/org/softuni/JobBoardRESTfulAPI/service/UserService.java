@@ -132,7 +132,8 @@ public class UserService {
             return;
         }
         UserEntity admin = new UserEntity();
-        UserRoleEntity adminRole = userRoleRepository.findFirstByRole(UserRoleEnum.valueOf("ADMIN"));
+//        UserRoleEntity adminRole = userRoleRepository.findFirstByRole(UserRoleEnum.valueOf("ADMIN"));
+        List <UserRoleEntity> allRoles = userRoleRepository.findAll();
         admin.setUsername("admin")
                 .setPassword(passwordEncoder.encode("1234"))
                 .setFirstName("Admin")
@@ -140,7 +141,7 @@ public class UserService {
                 .setEmail("admin@jobboard.com")
                 .setDateOfBirth(LocalDate.parse("1980-12-12"))
                 .setGender(GenderEnum.MALE)
-                .setRole(Set.of(adminRole));
+                .setRole(Set.copyOf(allRoles));
         userRepository.save(admin);
     }
 

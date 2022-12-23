@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.OfferAddDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.CompanyEntity;
 import org.softuni.JobBoardRESTfulAPI.model.entity.OfferEntity;
+import org.softuni.JobBoardRESTfulAPI.model.entity.TechStackEntity;
 import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
 import org.softuni.JobBoardRESTfulAPI.model.enums.LevelEnum;
 import org.softuni.JobBoardRESTfulAPI.model.enums.LocationEnum;
@@ -13,7 +14,6 @@ import org.softuni.JobBoardRESTfulAPI.repository.OfferRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -36,11 +36,14 @@ public class OfferService {
 
 
         UserEntity user = userService.getUser(offerModel.getUsername());
+        if (offerModel.getCompanyName()== null){offerModel.setCompanyName("Slujebno");}
         CompanyEntity company = companyService.findCompanyByUser(user);
-
+        if (company == null) {
+            companyService.addCompany(offerModel.getCompanyName(), user);
+        }
         OfferEntity offer = modelMapper.map(offerModel, OfferEntity.class);
 
-        offer.setTechStack(userService.getTechStackEntityList(offerModel.getTechStack()));
+
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
 //        if (company != null) {
@@ -48,7 +51,10 @@ public class OfferService {
 //        }
 //        offer.getCompany().getUsers().add(user);
 
+        List<TechStackEntity> techStackList = userService.getTechStackEntityList(offerModel.getTechStack());
+        offer.setTechStack(techStackList);
         offerRepository.save(offer);
+
     }
 
     public List<OfferViewModel> getAllOffers(String location, String position, String level) {

@@ -39,7 +39,7 @@ public class OfferEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private LevelEnum level;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<TechStackEntity> techStack = new ArrayList<>();
 
