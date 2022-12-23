@@ -23,4 +23,8 @@ public class CompanyService {
         company.setName(companyName).getUsers().add(user);
         return companyRepository.save(company);
     }
+
+    public CompanyEntity findByName(String companyName) {
+        return companyRepository.findByName(companyName);
+    }
 }
