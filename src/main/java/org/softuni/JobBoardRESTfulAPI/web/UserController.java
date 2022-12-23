@@ -65,7 +65,7 @@ public class UserController {
             for (FieldError error : bindingResult.getFieldErrors()) {
                 errors.put(error.getField(), error.getDefaultMessage());
             }
-            return ResponseEntity.badRequest().body(errors);
+            return ResponseEntity.unprocessableEntity().body(errors);
         }
 
         this.userService.registerAndLogin(userModel);
