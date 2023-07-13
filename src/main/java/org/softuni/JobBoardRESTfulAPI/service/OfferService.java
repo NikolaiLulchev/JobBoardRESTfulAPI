@@ -36,7 +36,7 @@ public class OfferService {
 
 
         UserEntity user = userService.getUser(offerModel.getUsername());
-        if (offerModel.getCompanyName()== null){
+        if (offerModel.getCompanyName() == null) {
             offerModel.setCompanyName("Slujebno");
             //offerModel.setCompanyName(companyService.findByName(offerModel.getCompanyName()).getName());
         }

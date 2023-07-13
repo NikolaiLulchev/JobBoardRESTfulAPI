@@ -10,5 +10,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long> {
 
     CompanyEntity findCompanyEntityByUsers(UserEntity user);
 
-    CompanyEntity findByName(String companyName);
+    //CompanyEntity findByName(String companyName);
+    CompanyEntity findFirstByName(String companyName);
 }

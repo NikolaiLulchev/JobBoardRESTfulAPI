@@ -25,6 +25,6 @@ public class CompanyService {
     }
 
     public CompanyEntity findByName(String companyName) {
-        return companyRepository.findByName(companyName);
+        return companyRepository.findFirstByName(companyName);
     }
 }
