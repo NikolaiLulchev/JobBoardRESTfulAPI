@@ -38,9 +38,9 @@ public class OfferService {
         UserEntity user = userService.getUser(offerModel.getUsername());
         if (offerModel.getCompanyName()== null){
             offerModel.setCompanyName("Slujebno");
-            companyService.findByName(offerModel.getCompanyName());
+            //offerModel.setCompanyName(companyService.findByName(offerModel.getCompanyName()).getName());
         }
-        CompanyEntity company = companyService.findCompanyByUser(user);
+        CompanyEntity company = companyService.findByName(offerModel.getCompanyName());
         if (company == null) {
             companyService.addCompany(offerModel.getCompanyName(), user);
         }
@@ -49,6 +49,7 @@ public class OfferService {
 
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
+        offer.setLocation(LocationEnum.valueOf(offerModel.getLocation()));
 //        if (company != null) {
 //            offer.setCompany(company);
 //        }

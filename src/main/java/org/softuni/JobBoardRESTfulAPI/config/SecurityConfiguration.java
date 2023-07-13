@@ -58,17 +58,13 @@ public class SecurityConfiguration {
                 loginPage("/api/v1/users/login").
                 usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
                 passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
-                successHandler((request, response, authentication) -> {
-                    response.setStatus(HttpServletResponse.SC_OK);
-                }).
+                successHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)).
                 //TODO handle failure
                 failureForwardUrl("/api/v1/users/login").
                 and().
                 logout().
                 logoutUrl("/api/v1/users/logout").
-                logoutSuccessHandler((request, response, authentication) -> {
-                    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-                }).
+                logoutSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_NO_CONTENT)).
                 invalidateHttpSession(true).
                 deleteCookies("JSESSIONID");
         return http.build();

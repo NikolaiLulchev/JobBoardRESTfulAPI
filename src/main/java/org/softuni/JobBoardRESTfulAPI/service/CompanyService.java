@@ -18,10 +18,10 @@ public class CompanyService {
         return companyRepository.findCompanyEntityByUsers(user);
     }
 
-    public CompanyEntity addCompany(String companyName, UserEntity user) {
+    public void addCompany(String companyName, UserEntity user) {
         CompanyEntity company =new CompanyEntity();
         company.setName(companyName).getUsers().add(user);
-        return companyRepository.save(company);
+        companyRepository.save(company);
     }
 
     public CompanyEntity findByName(String companyName) {
