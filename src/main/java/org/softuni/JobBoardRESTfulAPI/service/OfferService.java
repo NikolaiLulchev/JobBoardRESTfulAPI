@@ -50,6 +50,7 @@ public class OfferService {
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
         offer.setLocation(LocationEnum.valueOf(offerModel.getLocation()));
+
 //        if (company != null) {
 //            offer.setCompany(company);
 //        }
@@ -57,6 +58,7 @@ public class OfferService {
 
         List<TechStackEntity> techStackList = userService.getTechStackEntityList(offerModel.getTechStack());
         offer.setTechStack(techStackList);
+        offer.setCompany(company);
         offerRepository.save(offer);
 
     }

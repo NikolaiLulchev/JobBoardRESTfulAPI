@@ -43,7 +43,7 @@ public class OfferEntity extends BaseEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<TechStackEntity> techStack = new ArrayList<>();
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private CompanyEntity company;
 
     public OfferEntity() {
