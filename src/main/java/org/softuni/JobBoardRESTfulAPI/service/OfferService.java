@@ -89,6 +89,7 @@ public class OfferService {
                 .map(offerEntity -> {
                     OfferViewModel offerViewModel = modelMapper.map(offerEntity, OfferViewModel.class);
                     offerViewModel.setUsername(offerEntity.getUser().getUsername());
+                    offerViewModel.setCompany(offerEntity.getCompany().getName());
                     return offerViewModel;
                 })
                 .collect(Collectors.toList());
