@@ -53,7 +53,6 @@ public class OfferService {
         offerRepository.save(offer);
     }
 
-
     public List<OfferViewModel> getAllOffers(String location, String position, String level) {
         Predicate<OfferEntity> filterByLocation = offer -> {
             if (location == null || location.isBlank()) {
@@ -95,11 +94,6 @@ public class OfferService {
                 .collect(Collectors.toList());
 
     }
-
-//    public List<OfferViewModel> getAllOffers() {
-//        return offerRepository.findAllByOrderByAddedOnDesc().stream()
-//                .map(offerEntity -> modelMapper.map(offerEntity, OfferViewModel.class)).collect(Collectors.toList());
-//    }
 
     public OfferEntity getOfferById(Long id) {
         return offerRepository.getReferenceById(id);
