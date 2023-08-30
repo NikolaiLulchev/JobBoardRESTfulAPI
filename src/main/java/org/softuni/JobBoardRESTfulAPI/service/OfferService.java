@@ -33,6 +33,32 @@ public class OfferService {
         this.companyService = companyService;
     }
 
+    private static Predicate<OfferEntity> getOfferEntityPredicate(String position, String level, Predicate<OfferEntity> filterByLocation) {
+        Predicate<OfferEntity> filterByPosition = offer -> {
+            if (position == null || position.isBlank()) {
+                return true;
+            }
+            return offer.getPosition() == PositionEnum.valueOf(position);
+        };
+        Predicate<OfferEntity> filterByLevel = offer -> {
+            if (level == null || level.isBlank()) {
+                return true;
+            }
+            return offer.getLevel() == LevelEnum.valueOf(level);
+        };
+
+        Predicate<OfferEntity> filter = filterByLocation;
+
+        if (position != null && !position.isBlank()) {
+            filter = filter.and(filterByPosition);
+        }
+
+        if (level != null && !level.isBlank()) {
+            filter = filter.and(filterByLevel);
+        }
+        return filter;
+    }
+
     public void postOffer(OfferAddDTO offerModel) {
         UserEntity user = userService.getUser(offerModel.getUsername());
 
@@ -75,28 +101,7 @@ public class OfferService {
             }
             return offer.getLocation() == LocationEnum.valueOf(location);
         };
-        Predicate<OfferEntity> filterByPosition = offer -> {
-            if (position == null || position.isBlank()) {
-                return true;
-            }
-            return offer.getPosition() == PositionEnum.valueOf(position);
-        };
-        Predicate<OfferEntity> filterByLevel = offer -> {
-            if (level == null || level.isBlank()) {
-                return true;
-            }
-            return offer.getLevel() == LevelEnum.valueOf(level);
-        };
-
-        Predicate<OfferEntity> filter = filterByLocation;
-
-        if (position != null && !position.isBlank()) {
-            filter = filter.and(filterByPosition);
-        }
-
-        if (level != null && !level.isBlank()) {
-            filter = filter.and(filterByLevel);
-        }
+        Predicate<OfferEntity> filter = getOfferEntityPredicate(position, level, filterByLocation);
 
         return offerRepository.findAllByOrderByAddedOnDesc().stream()
                 .filter(filter)
