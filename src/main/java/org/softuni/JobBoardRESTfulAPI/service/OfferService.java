@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
+
     private final ModelMapper modelMapper;
     private final OfferRepository offerRepository;
     private final UserService userService;
@@ -33,34 +34,23 @@ public class OfferService {
     }
 
     public void postOffer(OfferAddDTO offerModel) {
-
-
         UserEntity user = userService.getUser(offerModel.getUsername());
-        if (offerModel.getCompanyName() == null) {
-            offerModel.setCompanyName("Slujebno");
-            //offerModel.setCompanyName(companyService.findByName(offerModel.getCompanyName()).getName());
-        }
+
         CompanyEntity company = companyService.findByName(offerModel.getCompanyName());
+
         if (company == null) {
-            companyService.addCompany(offerModel.getCompanyName(), user);
+            company = companyService.addCompany(offerModel.getCompanyName(), user);
         }
+
         OfferEntity offer = modelMapper.map(offerModel, OfferEntity.class);
-
-
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
         offer.setLocation(LocationEnum.valueOf(offerModel.getLocation()));
-
-//        if (company != null) {
-//            offer.setCompany(company);
-//        }
-//        offer.getCompany().getUsers().add(user);
 
         List<TechStackEntity> techStackList = userService.getTechStackEntityList(offerModel.getTechStack());
         offer.setTechStack(techStackList);
         offer.setCompany(company);
         offerRepository.save(offer);
-
     }
 
     public List<OfferViewModel> getAllOffers(String location, String position, String level) {
@@ -98,17 +88,12 @@ public class OfferService {
                 .map(offerEntity -> {
                     OfferViewModel offerViewModel = modelMapper.map(offerEntity, OfferViewModel.class);
                     offerViewModel.setUsername(offerEntity.getUser().getUsername());
+                    offerViewModel.setCompany(offerEntity.getCompany().getName());
                     return offerViewModel;
                 })
                 .collect(Collectors.toList());
 
-
     }
-
-//    public List<OfferViewModel> getAllOffers() {
-//        return offerRepository.findAllByOrderByAddedOnDesc().stream()
-//                .map(offerEntity -> modelMapper.map(offerEntity, OfferViewModel.class)).collect(Collectors.toList());
-//    }
 
     public OfferEntity getOfferById(Long id) {
         return offerRepository.getReferenceById(id);

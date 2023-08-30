@@ -7,6 +7,7 @@ import org.softuni.JobBoardRESTfulAPI.model.dto.UserUpdateDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
 import org.softuni.JobBoardRESTfulAPI.model.view.UserViewModel;
 import org.softuni.JobBoardRESTfulAPI.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -73,16 +74,17 @@ public class UserController {
         return ResponseEntity.ok(userModel);
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid UserLoginDTO userModel) {
+        UserEntity user = userService.getUser(userModel.getUsername());
 
-        UserEntity user = this.userService.getUser(userModel.getUsername());
-        UserViewModel userView = modelMapper.map(user, UserViewModel.class);
-
-        this.userService.login(userModel);
-
-        return ResponseEntity.ok(userView);
+        if (userService.verifyPassword(user, userModel.getPassword())) {
+            UserViewModel userView = modelMapper.map(user, UserViewModel.class);
+            userService.login(userModel);
+            return ResponseEntity.ok(userView);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/profile")
