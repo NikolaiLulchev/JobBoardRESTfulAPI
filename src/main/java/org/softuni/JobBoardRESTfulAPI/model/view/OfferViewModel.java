@@ -1,7 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.model.view;
 
 import lombok.Data;
-import org.softuni.JobBoardRESTfulAPI.model.entity.CompanyEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,6 +28,6 @@ public class OfferViewModel {
 
     private List<String> techStack;
 
-    private CompanyEntity company;
+    private String company;
 
 }

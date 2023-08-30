@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
+
     private final ModelMapper modelMapper;
     private final OfferRepository offerRepository;
     private final UserService userService;
@@ -34,6 +35,7 @@ public class OfferService {
 
     public void postOffer(OfferAddDTO offerModel) {
         UserEntity user = userService.getUser(offerModel.getUsername());
+
         CompanyEntity company = companyService.findCompanyByUser(user);
 
         if (company == null) {
@@ -50,6 +52,7 @@ public class OfferService {
         }
 
         // Create the offer entity and set its properties
+
         OfferEntity offer = modelMapper.map(offerModel, OfferEntity.class);
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
@@ -61,6 +64,7 @@ public class OfferService {
         offer.setCompany(company);
 
         // Save the offer
+
         offerRepository.save(offer);
     }
 
@@ -101,17 +105,12 @@ public class OfferService {
                 .map(offerEntity -> {
                     OfferViewModel offerViewModel = modelMapper.map(offerEntity, OfferViewModel.class);
                     offerViewModel.setUsername(offerEntity.getUser().getUsername());
+                    offerViewModel.setCompany(offerEntity.getCompany().getName());
                     return offerViewModel;
                 })
                 .collect(Collectors.toList());
 
-
     }
-
-//    public List<OfferViewModel> getAllOffers() {
-//        return offerRepository.findAllByOrderByAddedOnDesc().stream()
-//                .map(offerEntity -> modelMapper.map(offerEntity, OfferViewModel.class)).collect(Collectors.toList());
-//    }
 
     public OfferEntity getOfferById(Long id) {
         return offerRepository.getReferenceById(id);

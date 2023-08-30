@@ -78,6 +78,23 @@ public class UserService {
                 setAuthentication(auth);
     }
 
+    public void login(UserLoginDTO userModel) {
+        UserDetails userDetails =
+                userDetailsService.loadUserByUsername(userModel.getUsername());
+
+        Authentication auth =
+                new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        userDetails.getPassword(),
+                        userDetails.getAuthorities()
+                );
+
+        SecurityContextHolder.
+                getContext().
+                setAuthentication(auth);
+        System.out.println("user " + userDetails.getUsername() + " logged in");
+    }
+
     public UserEntity getUser(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + "was not found"));
     }
@@ -147,20 +164,7 @@ public class UserService {
         userRepository.save(admin);
     }
 
-    public void login(UserLoginDTO userModel) {
-        UserDetails userDetails =
-                userDetailsService.loadUserByUsername(userModel.getUsername());
-
-        Authentication auth =
-                new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        userDetails.getPassword(),
-                        userDetails.getAuthorities()
-                );
-
-        SecurityContextHolder.
-                getContext().
-                setAuthentication(auth);
-        System.out.println("user " + userDetails.getUsername() + " logged in");
+    public boolean verifyPassword(UserEntity user, String password) {
+        return passwordEncoder.matches(password, user.getPassword());
     }
 }

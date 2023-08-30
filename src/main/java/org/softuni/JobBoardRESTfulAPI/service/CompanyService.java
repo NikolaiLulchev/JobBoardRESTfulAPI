@@ -19,6 +19,7 @@ public class CompanyService {
     }
 
     public CompanyEntity addCompany(String companyName, UserEntity user) {
+
         CompanyEntity company =new CompanyEntity();
         company.setName(companyName).getUsers().add(user);
         companyRepository.save(company);

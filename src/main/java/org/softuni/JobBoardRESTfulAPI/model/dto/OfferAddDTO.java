@@ -1,7 +1,5 @@
 package org.softuni.JobBoardRESTfulAPI.model.dto;
 
-import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
-
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
