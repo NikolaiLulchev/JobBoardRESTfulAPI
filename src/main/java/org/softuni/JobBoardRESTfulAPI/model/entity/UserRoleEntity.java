@@ -1,6 +1,5 @@
 package org.softuni.JobBoardRESTfulAPI.model.entity;
 
-
 import org.softuni.JobBoardRESTfulAPI.model.enums.UserRoleEnum;
 
 import javax.persistence.Entity;
@@ -34,9 +33,15 @@ public class UserRoleEntity extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserRoleEntity)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserRoleEntity)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         UserRoleEntity that = (UserRoleEntity) o;
         return getRole() == that.getRole();
     }

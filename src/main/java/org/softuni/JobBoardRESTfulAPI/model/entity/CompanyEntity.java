@@ -1,10 +1,13 @@
 package org.softuni.JobBoardRESTfulAPI.model.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 @Entity
 @Table(name = "companies")
 public class CompanyEntity extends BaseEntity {
@@ -20,15 +23,23 @@ public class CompanyEntity extends BaseEntity {
     public CompanyEntity() {
     }
 
-    public String getName() {
-        return name;
-    }
-
     public CompanyEntity setName(String name) {
         this.name = capitalizeName(name);
         return this;
     }
 
+    public void addUser(UserEntity user) {
+        users.add(user);
+    }
+
+    //    public Set<OfferEntity> getOffers() {
+//        return offers;
+//    }
+//
+//    public CompanyEntity setOffers(Set<OfferEntity> offers) {
+//        this.offers = offers;
+//        return this;
+//    }
     private String capitalizeName(String name) {
         if (name == null || name.isEmpty()) {
             return name;
@@ -45,26 +56,4 @@ public class CompanyEntity extends BaseEntity {
         }
         return capitalized.toString().trim();
     }
-
-    public Set<UserEntity> getUsers() {
-        return users;
-    }
-
-    public CompanyEntity setUsers(Set<UserEntity> user) {
-        this.users = user;
-        return this;
-    }
-
-    public void addUser(UserEntity user) {
-        users.add(user);
-    }
-
-//    public Set<OfferEntity> getOffers() {
-//        return offers;
-//    }
-//
-//    public CompanyEntity setOffers(Set<OfferEntity> offers) {
-//        this.offers = offers;
-//        return this;
-//    }
 }

@@ -19,7 +19,6 @@ public class JobboardUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -47,7 +46,7 @@ public class JobboardUserDetailsService implements UserDetailsService {
 
     private GrantedAuthority map(UserRoleEntity userRole) {
         return new SimpleGrantedAuthority("ROLE_" +
-                                          userRole.
-                                                  getRole().name());
+                userRole.
+                        getRole().name());
     }
 }

@@ -47,7 +47,7 @@ public class OfferService {
                 company = companyService.addCompany(offerModel.getCompanyName(), user);
             } else {
                 // If company exists but is not associated with the user, add the user to the company
-                companyService.addUserToCompany(company,user);
+                companyService.addUserToCompany(company, user);
             }
         }
 
@@ -67,8 +67,6 @@ public class OfferService {
 
         offerRepository.save(offer);
     }
-
-
 
     public List<OfferViewModel> getAllOffers(String location, String position, String level) {
         Predicate<OfferEntity> filterByLocation = offer -> {

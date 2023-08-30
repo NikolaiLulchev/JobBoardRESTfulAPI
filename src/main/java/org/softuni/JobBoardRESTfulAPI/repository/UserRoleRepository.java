@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRoleEntity, Long> {
-    
+
     UserRoleEntity findFirstByRole(UserRoleEnum role);
 
 }

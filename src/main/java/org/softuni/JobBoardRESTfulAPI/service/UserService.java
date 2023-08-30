@@ -47,7 +47,6 @@ public class UserService {
         this.modelMapper = modelMapper;
     }
 
-
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 
         UserRoleEntity userRole = userRoleRepository.findFirstByRole(UserRoleEnum.valueOf(userRegisterDTO.getRole()));
@@ -60,7 +59,6 @@ public class UserService {
         this.userRepository.save(newUser);
         login(newUser);
     }
-
 
     private void login(UserEntity userEntity) {
         UserDetails userDetails =
@@ -152,7 +150,7 @@ public class UserService {
         }
         UserEntity admin = new UserEntity();
 //        UserRoleEntity adminRole = userRoleRepository.findFirstByRole(UserRoleEnum.valueOf("ADMIN"));
-        List <UserRoleEntity> allRoles = userRoleRepository.findAll();
+        List<UserRoleEntity> allRoles = userRoleRepository.findAll();
         admin.setUsername("admin")
                 .setPassword(passwordEncoder.encode("1234"))
                 .setFirstName("Admin")

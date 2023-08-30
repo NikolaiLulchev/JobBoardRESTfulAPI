@@ -4,7 +4,6 @@ import org.softuni.JobBoardRESTfulAPI.model.enums.GenderEnum;
 import org.softuni.JobBoardRESTfulAPI.model.enums.LevelEnum;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.Period;
@@ -31,7 +30,7 @@ public class UserEntity extends BaseEntity {
     @Transient
     private Integer age;
 
-//    @Column(nullable = false)
+    //    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
@@ -56,7 +55,6 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity() {
     }
-
 
     public List<TechStackEntity> getTechStack() {
         return techStack;

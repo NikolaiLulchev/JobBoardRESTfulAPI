@@ -21,7 +21,6 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfiguration {
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();
@@ -46,11 +45,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
         http.addFilterBefore(corsFilter(), CsrfFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/api/v1/users/**","/api/v1/offers/**", "/api/v1/company/**").permitAll()
+                .antMatchers("/", "/api/v1/users/**", "/api/v1/offers/**", "/api/v1/company/**").permitAll()
                 .anyRequest()
                 .authenticated().
                 and().
@@ -60,7 +58,7 @@ public class SecurityConfiguration {
                 passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
                 successHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)).
                 //TODO handle failure
-                failureForwardUrl("/api/v1/users/login").
+                        failureForwardUrl("/api/v1/users/login").
                 and().
                 logout().
                 logoutUrl("/api/v1/users/logout").

@@ -88,7 +88,6 @@ public class UserViewModel {
         return this;
     }
 
-
     public String getGender() {
         return gender;
     }

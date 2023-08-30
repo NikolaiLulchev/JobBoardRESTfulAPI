@@ -3,10 +3,6 @@ package org.softuni.JobBoardRESTfulAPI.interceptors;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.time.LocalTime;
-
 @Configuration
 public class MaintenanceInterceptor implements HandlerInterceptor {
 

@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TechStackRepository extends JpaRepository<TechStackEntity, Long> {
+
     TechStackEntity findByTechStack(TechStackEnum techStackEnum);
 }

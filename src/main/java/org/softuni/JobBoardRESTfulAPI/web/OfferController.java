@@ -1,6 +1,5 @@
 package org.softuni.JobBoardRESTfulAPI.web;
 
-import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.OfferAddDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.OfferEntity;
@@ -24,7 +23,6 @@ public class OfferController {
 
     private final OfferService offerService;
     private final ModelMapper modelMapper;
-
 
     public OfferController(OfferService offerService, ModelMapper modelMapper) {
         this.offerService = offerService;

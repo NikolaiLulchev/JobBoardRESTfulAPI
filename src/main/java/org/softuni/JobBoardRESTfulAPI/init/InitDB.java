@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class InitDB implements CommandLineRunner {
+
     private final UserService userService;
     private final TechStackService techStackService;
     private final UserRoleService userRoleService;
-
 
     public InitDB(UserService userService, TechStackService techStackService, UserRoleService userRoleService) {
         this.userService = userService;

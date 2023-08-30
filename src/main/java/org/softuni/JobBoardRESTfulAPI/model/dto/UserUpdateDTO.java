@@ -2,7 +2,10 @@ package org.softuni.JobBoardRESTfulAPI.model.dto;
 
 import org.softuni.JobBoardRESTfulAPI.model.enums.GenderEnum;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +18,7 @@ public class UserUpdateDTO {
     @NotEmpty
     private String email;
 
-//    @Min(18)
+    //    @Min(18)
 //    @Max(110)
 //    @NotNull
     private Integer age;

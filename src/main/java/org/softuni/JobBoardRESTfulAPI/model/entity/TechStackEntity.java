@@ -21,7 +21,6 @@ public class TechStackEntity extends BaseEntity {
 
     }
 
-
     public TechStackEnum getTechStack() {
         return techStack;
     }

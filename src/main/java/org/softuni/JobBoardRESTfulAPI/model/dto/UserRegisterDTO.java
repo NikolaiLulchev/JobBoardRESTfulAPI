@@ -38,6 +38,9 @@ public class UserRegisterDTO {
 
     private LocalDate dateOfBirth;
 
+    public UserRegisterDTO() {
+    }
+
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -45,9 +48,6 @@ public class UserRegisterDTO {
     public UserRegisterDTO setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
-    }
-
-    public UserRegisterDTO() {
     }
 
     public String getUsername() {
