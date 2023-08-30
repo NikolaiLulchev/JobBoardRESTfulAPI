@@ -53,6 +53,8 @@ public class UserService {
         UserRoleEntity userRole = userRoleRepository.findFirstByRole(UserRoleEnum.valueOf(userRegisterDTO.getRole()));
         UserEntity newUser = modelMapper.map(userRegisterDTO, UserEntity.class);
         newUser.setRole(Set.of(userRole));
+        //TODO handle real birthDate
+        newUser.setDateOfBirth(LocalDate.now().minusYears(19));
         newUser.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
         this.userRepository.save(newUser);

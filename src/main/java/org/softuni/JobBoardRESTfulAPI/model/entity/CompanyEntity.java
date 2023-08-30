@@ -25,8 +25,25 @@ public class CompanyEntity extends BaseEntity {
     }
 
     public CompanyEntity setName(String name) {
-        this.name = name;
+        this.name = capitalizeName(name);
         return this;
+    }
+
+    private String capitalizeName(String name) {
+        if (name == null || name.isEmpty()) {
+            return name;
+        }
+
+        String[] words = name.split("\\s+");
+        StringBuilder capitalized = new StringBuilder();
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                char firstChar = Character.toUpperCase(word.charAt(0));
+                String restOfWord = word.substring(1).toLowerCase();
+                capitalized.append(firstChar).append(restOfWord).append(" ");
+            }
+        }
+        return capitalized.toString().trim();
     }
 
     public Set<UserEntity> getUsers() {
@@ -36,6 +53,10 @@ public class CompanyEntity extends BaseEntity {
     public CompanyEntity setUsers(Set<UserEntity> user) {
         this.users = user;
         return this;
+    }
+
+    public void addUser(UserEntity user) {
+        users.add(user);
     }
 
 //    public Set<OfferEntity> getOffers() {

@@ -36,22 +36,39 @@ public class OfferService {
     public void postOffer(OfferAddDTO offerModel) {
         UserEntity user = userService.getUser(offerModel.getUsername());
 
-        CompanyEntity company = companyService.findByName(offerModel.getCompanyName());
+        CompanyEntity company = companyService.findCompanyByUser(user);
 
         if (company == null) {
-            company = companyService.addCompany(offerModel.getCompanyName(), user);
+            // Try to find the company by name
+            company = companyService.findByName(offerModel.getCompanyName());
+
+            if (company == null) {
+                // If company doesn't exist, create it and associate with the user
+                company = companyService.addCompany(offerModel.getCompanyName(), user);
+            } else {
+                // If company exists but is not associated with the user, add the user to the company
+                companyService.addUserToCompany(company,user);
+            }
         }
+
+        // Create the offer entity and set its properties
 
         OfferEntity offer = modelMapper.map(offerModel, OfferEntity.class);
         offer.setUser(user);
         offer.setAddedOn(LocalDateTime.now());
         offer.setLocation(LocationEnum.valueOf(offerModel.getLocation()));
 
+        // Map tech stack and associate the offer with the company
         List<TechStackEntity> techStackList = userService.getTechStackEntityList(offerModel.getTechStack());
         offer.setTechStack(techStackList);
         offer.setCompany(company);
+
+        // Save the offer
+
         offerRepository.save(offer);
     }
+
+
 
     public List<OfferViewModel> getAllOffers(String location, String position, String level) {
         Predicate<OfferEntity> filterByLocation = offer -> {

@@ -19,9 +19,15 @@ public class CompanyService {
     }
 
     public CompanyEntity addCompany(String companyName, UserEntity user) {
-        CompanyEntity company = new CompanyEntity();
-        company.setName(companyName);
-        company.getUsers().add(user);
+
+        CompanyEntity company =new CompanyEntity();
+        company.setName(companyName).getUsers().add(user);
+        companyRepository.save(company);
+        return company;
+    }
+
+    public CompanyEntity addUserToCompany(CompanyEntity company, UserEntity user) {
+        company.addUser(user);
         return companyRepository.save(company);
     }
 
