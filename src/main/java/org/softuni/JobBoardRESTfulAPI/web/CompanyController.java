@@ -5,10 +5,7 @@ import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
 import org.softuni.JobBoardRESTfulAPI.service.CompanyService;
 import org.softuni.JobBoardRESTfulAPI.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(
         origins = "http://localhost:4200",
@@ -28,11 +25,10 @@ public class CompanyController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getCompany(String username) {
+    public ResponseEntity<?> getCompany(@RequestParam String username) {
         UserEntity user = userService.getUser(username);
         CompanyEntity company = companyService.findCompanyByUser(user);
 
         return ResponseEntity.ok(company);
     }
-
 }
