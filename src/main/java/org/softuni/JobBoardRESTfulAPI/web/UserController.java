@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.web;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.UserLoginDTO;
 import org.softuni.JobBoardRESTfulAPI.model.dto.UserRegisterDTO;
@@ -27,15 +28,11 @@ import java.util.stream.Collectors;
 )
 @RestController
 @RequestMapping("api/v1/users")
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
-
-    public UserController(UserService userService, ModelMapper modelMapper) {
-        this.userService = userService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping
     public ResponseEntity<List<UserViewModel>> getAllUsers() {

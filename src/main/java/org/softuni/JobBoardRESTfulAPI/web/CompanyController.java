@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.web;
 
+import lombok.AllArgsConstructor;
 import org.softuni.JobBoardRESTfulAPI.model.entity.CompanyEntity;
 import org.softuni.JobBoardRESTfulAPI.model.entity.UserEntity;
 import org.softuni.JobBoardRESTfulAPI.service.CompanyService;
@@ -14,15 +15,11 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping("api/v1/company")
+@AllArgsConstructor
 public class CompanyController {
 
     private final CompanyService companyService;
     private final UserService userService;
-
-    public CompanyController(CompanyService companyService, UserService userService) {
-        this.companyService = companyService;
-        this.userService = userService;
-    }
 
     @GetMapping
     public ResponseEntity<?> getCompany(@RequestParam String username) {

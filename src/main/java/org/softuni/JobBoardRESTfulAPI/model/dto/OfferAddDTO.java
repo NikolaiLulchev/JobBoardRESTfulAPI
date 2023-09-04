@@ -1,11 +1,15 @@
 package org.softuni.JobBoardRESTfulAPI.model.dto;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class OfferAddDTO {
 
+    @Size(min = 4, max = 20)
     private String username;
 
     @NotEmpty
@@ -17,6 +21,7 @@ public class OfferAddDTO {
 
     private String description;
 
+    @Getter
     private LocalDateTime addedOn;
 
     private boolean isActive;
@@ -73,10 +78,6 @@ public class OfferAddDTO {
     public OfferAddDTO setDescription(String description) {
         this.description = description;
         return this;
-    }
-
-    public LocalDateTime getAddedOn() {
-        return addedOn;
     }
 
     public OfferAddDTO setAddedOn(LocalDateTime addedOn) {

@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.service;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.OfferAddDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.CompanyEntity;
@@ -19,19 +20,13 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class OfferService {
 
     private final ModelMapper modelMapper;
     private final OfferRepository offerRepository;
     private final UserService userService;
     private final CompanyService companyService;
-
-    public OfferService(ModelMapper modelMapper, OfferRepository offerRepository, UserService userService, CompanyService companyService) {
-        this.modelMapper = modelMapper;
-        this.offerRepository = offerRepository;
-        this.userService = userService;
-        this.companyService = companyService;
-    }
 
     private static Predicate<OfferEntity> getOfferEntityPredicate(String position, String level, Predicate<OfferEntity> filterByLocation) {
         Predicate<OfferEntity> filterByPosition = offer -> {

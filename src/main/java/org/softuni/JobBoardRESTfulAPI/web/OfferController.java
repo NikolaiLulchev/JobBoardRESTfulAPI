@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.web;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.OfferAddDTO;
 import org.softuni.JobBoardRESTfulAPI.model.entity.OfferEntity;
@@ -19,15 +20,11 @@ import java.util.List;
 )
 @RestController
 @RequestMapping("api/v1/offers")
+@AllArgsConstructor
 public class OfferController {
 
     private final OfferService offerService;
     private final ModelMapper modelMapper;
-
-    public OfferController(OfferService offerService, ModelMapper modelMapper) {
-        this.offerService = offerService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping
     public ResponseEntity<List<OfferViewModel>> getAllOffers(@RequestParam(required = false) String location,

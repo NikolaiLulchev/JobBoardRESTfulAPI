@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.service;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.softuni.JobBoardRESTfulAPI.model.dto.UserLoginDTO;
 import org.softuni.JobBoardRESTfulAPI.model.dto.UserRegisterDTO;
@@ -27,6 +28,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
@@ -35,17 +37,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final ModelMapper modelMapper;
-
-    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository,
-                       TechStackRepository techStackRepository, PasswordEncoder passwordEncoder,
-                       UserDetailsService userDetailsService, ModelMapper modelMapper) {
-        this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
-        this.techStackRepository = techStackRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.userDetailsService = userDetailsService;
-        this.modelMapper = modelMapper;
-    }
 
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 

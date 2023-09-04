@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.service;
 
+import lombok.AllArgsConstructor;
 import org.softuni.JobBoardRESTfulAPI.model.entity.TechStackEntity;
 import org.softuni.JobBoardRESTfulAPI.model.enums.TechStackEnum;
 import org.softuni.JobBoardRESTfulAPI.repository.TechStackRepository;
@@ -9,13 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class TechStackService {
 
     private final TechStackRepository techStackRepository;
-
-    public TechStackService(TechStackRepository techStackRepository) {
-        this.techStackRepository = techStackRepository;
-    }
 
     public List<TechStackEntity> allTechStack() {
         return techStackRepository.findAll();
