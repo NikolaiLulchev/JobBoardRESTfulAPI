@@ -17,9 +17,24 @@ import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class SecurityConfiguration {
+
+    public static final String[] PUBLIC_ENDPOINTS = {
+            "/",
+            "/api/v1/users/**",
+            "/api/v1/offers/**",
+            "/api/v1/company/**"
+    };
+
+    public static final String LOGIN_ENDPOINT = "/api/v1/users/login";
+    public static final String LOGOUT_ENDPOINT = "/api/v1/users/logout";
+    private static final List<String> ALLOWED_ORIGINS = Arrays.asList(
+            "http://localhost:3000",
+            "http://localhost:4200"
+    );
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,7 +46,7 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:4200"));
+        corsConfiguration.setAllowedOrigins(ALLOWED_ORIGINS);
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
@@ -44,27 +59,25 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.addFilterBefore(corsFilter(), CsrfFilter.class)
+        http
+                .addFilterBefore(corsFilter(), CsrfFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/api/v1/users/**", "/api/v1/offers/**", "/api/v1/company/**").permitAll()
-                .anyRequest()
-                .authenticated().
-                and().
-                formLogin().
-                loginPage("/api/v1/users/login").
-                usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
-                passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
-                successHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)).
-                //TODO handle failure
-                        failureForwardUrl("/api/v1/users/login").
-                and().
-                logout().
-                logoutUrl("/api/v1/users/logout").
-                logoutSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_NO_CONTENT)).
-                invalidateHttpSession(true).
-                deleteCookies("JSESSIONID");
+                .antMatchers(PUBLIC_ENDPOINTS).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage(LOGIN_ENDPOINT)
+                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
+                .successHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK))
+                .failureForwardUrl(LOGIN_ENDPOINT) // Handle login failure
+                .and()
+                .logout()
+                .logoutUrl(LOGOUT_ENDPOINT)
+                .logoutSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_NO_CONTENT))
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
         return http.build();
     }
 

@@ -23,11 +23,11 @@ public class JobboardUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .map(this::map)
+                .map(this::mapUserEntity)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found!"));
     }
 
-    private UserDetails map(UserEntity userEntity) {
+    private UserDetails mapUserEntity(UserEntity userEntity) {
 
         return new JobboardUserDetails(
                 userEntity.getId(),
@@ -36,17 +36,14 @@ public class JobboardUserDetailsService implements UserDetailsService {
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
                 userEntity.getEmail(),
-                userEntity.
-                        getRole().
-                        stream().
-                        map(this::map).
+                userEntity.getRole().stream().
+                        map(this::mapUserRole).
                         toList()
         );
     }
 
-    private GrantedAuthority map(UserRoleEntity userRole) {
+    private GrantedAuthority mapUserRole(UserRoleEntity userRole) {
         return new SimpleGrantedAuthority("ROLE_" +
-                userRole.
-                        getRole().name());
+                userRole.getRole().name());
     }
 }

@@ -1,5 +1,9 @@
 package org.softuni.JobBoardRESTfulAPI.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.softuni.JobBoardRESTfulAPI.model.enums.LevelEnum;
@@ -13,6 +17,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "offers")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class OfferEntity extends BaseEntity {
 
     @ManyToOne
@@ -46,98 +54,6 @@ public class OfferEntity extends BaseEntity {
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private CompanyEntity company;
 
-    public OfferEntity() {
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public OfferEntity setUser(UserEntity user) {
-        this.user = user;
-        return this;
-    }
-
-    public PositionEnum getPosition() {
-        return position;
-    }
-
-    public OfferEntity setPosition(PositionEnum position) {
-        this.position = position;
-        return this;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public OfferEntity setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public LocationEnum getLocation() {
-        return location;
-    }
-
-    public OfferEntity setLocation(LocationEnum location) {
-        this.location = location;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public OfferEntity setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public LocalDateTime getAddedOn() {
-        return addedOn;
-    }
-
-    public OfferEntity setAddedOn(LocalDateTime addedOn) {
-        this.addedOn = addedOn;
-        return this;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public OfferEntity setActive(boolean active) {
-        isActive = active;
-        return this;
-    }
-
-    public LevelEnum getLevel() {
-        return level;
-    }
-
-    public OfferEntity setLevel(LevelEnum level) {
-        this.level = level;
-        return this;
-    }
-
-    public List<TechStackEntity> getTechStack() {
-        return techStack;
-    }
-
-    public OfferEntity setTechStack(List<TechStackEntity> techStack) {
-        this.techStack = techStack;
-        return this;
-    }
-
-    public CompanyEntity getCompany() {
-        return company;
-    }
-
-    public OfferEntity setCompany(CompanyEntity company) {
-        this.company = company;
-        return this;
-    }
 }
 
 

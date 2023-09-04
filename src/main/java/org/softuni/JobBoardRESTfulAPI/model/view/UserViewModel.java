@@ -1,9 +1,12 @@
 package org.softuni.JobBoardRESTfulAPI.model.view;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
+@Getter
 public class UserViewModel {
 
     private Long id;
@@ -43,17 +46,9 @@ public class UserViewModel {
         this.techStack = techStack;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public UserViewModel setUsername(String username) {
         this.username = username;
         return this;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public UserViewModel setId(Long id) {
@@ -61,17 +56,9 @@ public class UserViewModel {
         return this;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     public UserViewModel setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public UserViewModel setLastName(String lastName) {
@@ -79,17 +66,9 @@ public class UserViewModel {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public UserViewModel setEmail(String email) {
         this.email = email;
         return this;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public UserViewModel setGender(String gender) {
@@ -97,26 +76,14 @@ public class UserViewModel {
         return this;
     }
 
-    public Set<String> getRole() {
-        return role;
-    }
-
     public UserViewModel setRole(Set<String> role) {
         this.role = role;
         return this;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
     public UserViewModel setLevel(String level) {
         this.level = level;
         return this;
-    }
-
-    public List<String> getTechStack() {
-        return techStack;
     }
 
     public UserViewModel setTechStack(List<String> techStack) {

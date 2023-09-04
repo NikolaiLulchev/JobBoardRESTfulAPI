@@ -1,11 +1,14 @@
 package org.softuni.JobBoardRESTfulAPI.model.entity;
 
+import lombok.Getter;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
+@Getter
 @MappedSuperclass
 public abstract class BaseEntity {
 
@@ -14,15 +17,6 @@ public abstract class BaseEntity {
     private Long id;
 
     public BaseEntity() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public BaseEntity setId(Long id) {
-        this.id = id;
-        return this;
     }
 
     @Override

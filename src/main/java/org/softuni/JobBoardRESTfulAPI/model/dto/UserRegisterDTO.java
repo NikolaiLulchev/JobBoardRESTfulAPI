@@ -1,5 +1,6 @@
 package org.softuni.JobBoardRESTfulAPI.model.dto;
 
+import lombok.Getter;
 import org.softuni.JobBoardRESTfulAPI.model.validation.FieldMatch;
 import org.softuni.JobBoardRESTfulAPI.model.validation.UniqueUsername;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+@Getter
 @FieldMatch(
         first = "password",
         second = "confirmPassword",
@@ -41,17 +43,9 @@ public class UserRegisterDTO {
     public UserRegisterDTO() {
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
     public UserRegisterDTO setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public UserRegisterDTO setUsername(String username) {
@@ -59,17 +53,9 @@ public class UserRegisterDTO {
         return this;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     public UserRegisterDTO setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public UserRegisterDTO setLastName(String lastName) {
@@ -77,17 +63,9 @@ public class UserRegisterDTO {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public UserRegisterDTO setEmail(String email) {
         this.email = email;
         return this;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public UserRegisterDTO setPassword(String password) {
@@ -95,17 +73,9 @@ public class UserRegisterDTO {
         return this;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
     public UserRegisterDTO setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
         return this;
-    }
-
-    public String getRole() {
-        return role;
     }
 
     public UserRegisterDTO setRole(String role) {

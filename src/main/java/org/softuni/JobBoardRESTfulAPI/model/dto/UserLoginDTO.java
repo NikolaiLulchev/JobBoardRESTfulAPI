@@ -1,8 +1,11 @@
 package org.softuni.JobBoardRESTfulAPI.model.dto;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@Getter
 public class UserLoginDTO {
 
     @NotEmpty
@@ -15,17 +18,9 @@ public class UserLoginDTO {
     public UserLoginDTO() {
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public UserLoginDTO setUsername(String username) {
         this.username = username;
         return this;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public UserLoginDTO setPassword(String password) {

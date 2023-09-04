@@ -140,7 +140,6 @@ public class UserService {
             return;
         }
         UserEntity admin = new UserEntity();
-//        UserRoleEntity adminRole = userRoleRepository.findFirstByRole(UserRoleEnum.valueOf("ADMIN"));
         List<UserRoleEntity> allRoles = userRoleRepository.findAll();
         admin.setUsername("admin")
                 .setPassword(passwordEncoder.encode("1234"))

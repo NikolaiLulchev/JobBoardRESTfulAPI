@@ -1,15 +1,21 @@
 package org.softuni.JobBoardRESTfulAPI.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
 @Entity
 @Table(name = "companies")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CompanyEntity extends BaseEntity {
 
     @Column(nullable = false)
@@ -17,11 +23,6 @@ public class CompanyEntity extends BaseEntity {
     private String name;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<UserEntity> users = new HashSet<>();
-//    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
-//    private Set<OfferEntity> offers;
-
-    public CompanyEntity() {
-    }
 
     public CompanyEntity setName(String name) {
         this.name = capitalizeName(name);
@@ -32,14 +33,6 @@ public class CompanyEntity extends BaseEntity {
         users.add(user);
     }
 
-    //    public Set<OfferEntity> getOffers() {
-//        return offers;
-//    }
-//
-//    public CompanyEntity setOffers(Set<OfferEntity> offers) {
-//        this.offers = offers;
-//        return this;
-//    }
     private String capitalizeName(String name) {
         if (name == null || name.isEmpty()) {
             return name;
